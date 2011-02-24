@@ -1,0 +1,225 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="cenditel.video">
+
+<metal:slot fill-slot="head_slot">
+      <link rel="stylesheet" type="text/css" href="++resource++cenditel.multimediaplayertheme.stylesheets/styles.css" />
+      <link class="ui-theme" rel="stylesheet" type="text/css" href="++resource++cenditel.multimediaplayertheme.stylesheets/jquery-ui-1.8.9.custom.css"/>
+      <link rel="stylesheet" type="text/css" href="++resource++cenditel.multimediaplayertheme.stylesheets/player-controls.css" />
+</metal:slot >
+
+<metal:slot fill-slot="style_slot">
+      <style>
+			/*overlay controls*/
+			.media-controls-wrapper {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+			}
+			/* position the fullscreen-button */
+			div.volume-slider {
+				right: 46px;
+				width: 60px;
+			}
+			.fullscreen {
+				right: 8px;
+			}
+			
+			/* prepare fullscreen-button for flash fullscreen in modern browsers */
+			html > body .media-state {
+				height: auto;
+				top: 0;
+				bottom: 2em;
+			}
+			.jme-flashbutton-wrapper .media-controls-wrapper {
+				pointer-events: none;
+			}
+			
+			.jme-flashbutton-wrapper .media-controls > *:not(.fullscreen) {
+				pointer-events: auto;
+			}
+		</style>
+</metal:slot >
+
+<metal:slot fill-slot="javascript_head_slot">
+		<!--<script src=http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js></script>-->
+		<script type="text/javascript" src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js"></script>
+		<!--<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/jquery.min.js"></script>-->
+
+		<!-- ui-components -->
+		<script type="text/javascript" src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js"></script>
+		<!--<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/jquery-ui.min.js"></script>-->
+		<!-- END:  ui-components -->
+		
+		<!-- optional for a11y-slider -->
+		<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/a11y-slider.ext.js"></script>
+		<!-- END: for a11y-slider -->
+		
+		<!-- full jme script -->
+
+		<!-- configure path to swf-fallback: script.jwPlayer[src] -->
+		<!-- TODO revisar si esta tipo de importacion es correcta --> 
+		<script class="jwPlayer" type="application/swf" src="++resource++cenditel.multimediaplayertheme.backplayer/player.swf"></script>
+		<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/mm.full.min.js"></script>
+		<!-- END: jme -->
+
+		<!-- fullwindow plugin -->
+		<!-- TODO revisar si esta tipo de importacion es correcta --> 
+		<script class="jme-jwPlayer" type="application/swf" src="++resource++cenditel.multimediaplayertheme.backplayer/jmefs.swf"></script>
+		<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/fullwindow.js"></script>
+		<!-- fullwindow plugin-->
+		
+		<!-- useractivity -->
+		<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/useractivity.js"></script>
+		
+		<!-- jmeEmbedControls is a very simple plugin, that you should use as a starting point for your own theme -->
+		<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/jmeEmbedControls.js"></script>
+		<script type="text/javascript">
+			$('html').addClass('js-on');
+			$(function(){
+				$('div.media-player')
+					.jmeEmbedControls({
+						timeSlider: {
+							range: 'min'
+						}
+					})
+					//useractive/userinactive event is provided by utils/useractivity.js plugin
+					.bind('useractive', function(){
+						$('div.media-controls', this).stop().animate({opacity: 1});
+					})
+					.bind('userinactive', function(){
+						$('div.media-controls', this).stop().animate({opacity: 0});
+					})
+					//remove following lines if controls should be visible on start
+					.find('div.media-controls')
+					.css('opacity', 0)
+				;
+			});
+		</script>
+</metal:slot >
+
+<body>
+      <div metal:fill-slot="main">
+<!--###################################-->
+      <tal:main-macro metal:define-macro="main"
+                      tal:define="Playing view/PlayingVideoType;
+                                  NameInHardDrive view/GETNewNameVideo;
+                                  MyTitle view/GETMyTitle;
+                                  Available view/GETStatusOfFile;
+                                  UrlToVideo view/GETAdressOfVideoFromApache;
+                                  FolderFile view/GETfolderfile;
+                                  NewPath view/URLElement">
+
+	    <div tal:replace="structure provider:plone.abovecontenttitle" />
+<!--##widget del titulo de la template parte superior-->
+<!--##widget del titulo de la template-->
+	    <h1 class="documentFirstHeading"> 
+	        <metal:field use-macro="python:here.widget('title', mode='view')">
+	        Title
+	        </metal:field>
+	    </h1>
+	    <div tal:replace="structure provider:plone.belowcontenttitle" />
+<!--##widget del titulo de la template-->
+<!--##widget de descripcion de la template-->
+	    <p class="documentDescription">
+	        <metal:field use-macro="python:here.widget('description', mode='view')">
+	        Description
+	        </metal:field>
+	    </p>
+<!--####################DEBUG INFO
+La variable retornada por el Available   <span tal:replace="string:$Available"></span>
+<br />################################-->
+
+<!--##widget de descarga de la template-->
+	        <metal:field use-macro="python:here.widget('video', mode='view')">
+	        DownloadLink
+	        </metal:field>
+	        <span class="discreet"></span>
+<!--##widget de video de la template-->
+
+
+<!--##widget de video de la template en caso de available ser verdadero-->
+	    <span tal:condition= "python: Available == 1">
+	     <span i18n:translate="label_VideoHTML5">video:</span>
+	      <span class="media-label" tal:content="here/getId"><tal:comment replace="nothing">Id</tal:comment></span>
+                            <a tal:content="string:$MyTitle" 
+                               tal:attributes="href string:$UrlToVideo;
+                                               target string:_new">
+                               <tal:comment replace="nothing">La URL</tal:comment>
+                            </a>
+                            
+	      <div class="media-player">
+
+           <video poster="++resource++cenditel.multimediaplayertheme.images/logo_cenditel.png" 
+                  controls="controls" 
+                  type="video/ogg; codecs='theora, vorbis'">
+		    <source tal:attributes="src string:$FolderFile" />
+
+        	<div class="fallback">
+
+	         <img src="++resource++cenditel.multimediaplayertheme.images/logo_cenditel.png" alt=""/>
+	    
+             <div class="fallback-text">
+
+              <span i18n:translate="label_NoHTML5">We sorry, your browser do not give support to html5,
+		      please download</span><a href="http://www.mozilla-europe.org/es/firefox/" target="_new">
+		                            <tal:comment replace="nothing">firefox</tal:comment></a>
+              <ul class="source-fallback-video">
+			   <li><a class="source" tal:attributes="href string:$FolderFile"></a></li>
+               <li><a class="source" tal:attributes="href string:$FolderFile"></a></li>
+              </ul>
+
+             </div>
+
+        	</div>
+
+           </video>
+
+          </div>
+
+          <span i18n:translate="label_TitleInHardDrive">Name of the video:</span>
+          <span tal:content="string:$MyTitle"><tal:comment replace="nothing">it is the Name of the video</tal:comment></span>
+
+          <span class="discreet visualNoPrint">
+           &mdash;
+            <span i18n:translate="label_size">Size</span>:
+            <span tal:define= "FileSize view/GETFileSize" tal:content="string:$FileSize"><tal:comment replace="nothing">File size</tal:comment></span>
+          </span>
+
+          <span i18n:translate="label_NameInHardDrive">Name of the file in the HardDrive:</span>
+           <span tal:content="string:$NameInHardDrive"><tal:comment replace="nothing">it is the Name of the video</tal:comment></span>
+	   </span>
+
+      <!--##widget de video de la template en caso de available ser falso-->
+       <div tal:condition="python:Available == 0">
+
+        <font color="#777777" size="1" face="cursive"><br />
+
+       	 <span i18n:translate="label_FileIsWaiting">In this moment the file is on processing of transcodification</span><br />
+         <span i18n:translate="label_Sorry">Sorry for the inconvenience...</span>
+		
+	    </font>
+
+      </div>
+<!-- La variable retornada por el Available   <span tal:replace="string:${Available}"></span>-->
+<!--#########################################################################-->
+
+      <div tal:replace="structure provider:plone.abovecontentbody" />
+
+      <div metal:use-macro="here/document_relateditems/macros/relatedItems">
+        show related items if they exist
+      </div>
+
+      <div tal:replace="structure provider:plone.belowcontentbody" />
+
+      </tal:main-macro>
+
+</div>
+
+</body>
+
+</html>

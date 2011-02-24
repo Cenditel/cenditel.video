@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="cenditel.video">
+
+  <include package="plone.app.contentmenu" />
+
+  <!-- -*- extra stuff goes here -*- -->
+
+
+  <browser:page
+      for="cenditel.video.interfaces.video.Ivideo"
+      class=".videoview.videoView"
+      name="video_view"
+      template="videoview.pt"
+      permission="zope.Public"
+      />
+
+<!--layer="cenditel.multimedia.interfaces.video.IvideoSpecific"
+allowed_interface=".videoview.IvideoView"
+allowed_attributes="portal_state"-->
+
+</configure>

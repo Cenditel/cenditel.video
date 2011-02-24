@@ -1,0 +1,78 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-02-22 15:04+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: cenditel.video\n"
+
+#: ../content/video.py:63
+msgid "Description"
+msgstr ""
+
+#: ../content/video.py:44
+msgid "The File to be uploaded"
+msgstr ""
+
+#: ../browser/videoview.py:127
+msgid "The file is not ready yet, please contact site administration"
+msgstr ""
+
+#: ../content/video.py:43
+msgid "Video"
+msgstr ""
+
+#: ../profiles/default/types/video.xml
+msgid "it's video file with streming using html5"
+msgstr ""
+
+#. Default: "In this moment the file is on processing of transcodification"
+#: ../browser/videoview.pt:202
+msgid "label_FileIsWaiting"
+msgstr ""
+
+#. Default: "Name of the file in the HardDrive:"
+#: ../browser/videoview.pt:193
+msgid "label_NameInHardDrive"
+msgstr ""
+
+#. Default: "We sorry, your browser do not give support to html5, please download"
+#: ../browser/videoview.pt:168
+msgid "label_NoHTML5"
+msgstr ""
+
+#. Default: "Sorry for the inconvenience..."
+#: ../browser/videoview.pt:203
+msgid "label_Sorry"
+msgstr ""
+
+#. Default: "Name of the video:"
+#: ../browser/videoview.pt:184
+msgid "label_TitleInHardDrive"
+msgstr ""
+
+#. Default: "video:"
+#: ../browser/videoview.pt:147
+msgid "label_VideoHTML5"
+msgstr ""
+
+#. Default: "Size"
+#: ../browser/videoview.pt:189
+msgid "label_size"
+msgstr ""
+
+#: ../profiles/default/types/video.xml
+msgid "video"
+msgstr ""
+

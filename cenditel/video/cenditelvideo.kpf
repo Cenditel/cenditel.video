@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="a6830980-a512-4a77-a9f1-40d6d64c9d1e" kpf_version="4" name="cenditelvideo.kpf">
+<file id="69e85ab4-d6c0-422e-9816-f9892bd81748" idref="a6830980-a512-4a77-a9f1-40d6d64c9d1e" name="setup.py" url="file:///home/victor/buildouts/rebuild/src/cenditel.video/setup.py">
+</file>
+<preference-set idref="a6830980-a512-4a77-a9f1-40d6d64c9d1e">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>
