@@ -47,12 +47,11 @@
 
 <metal:slot fill-slot="javascript_head_slot">
 		<!--<script src=http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js></script>-->
-		<script type="text/javascript" src="++resource++collective.javascript.jqueryui/js/jquery-1.4.2.min.js"></script>
-		<!--<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/jquery.min.js"></script>-->
-
+		<!--<script src="++resource++collective.javascript.jqueryui/files/js/jquery-1.4.2.min.js"></script>-->
+		<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/jquery.min.js"></script>
 		<!-- ui-components -->
-		<script type="text/javascript" src="++resource++collective.javascript.jqueryui/js/jquery-ui.min.js"></script>
-		<!--<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/jquery-ui.min.js"></script>-->
+		<!--<script type="text/js" src="++resource++collective.javascript.jqueryui/files/js/jquery-ui.min.js"></script>-->
+		<script type="text/javascript" src="++resource++cenditel.multimediaplayertheme.javascripts/jquery-ui.min.js"></script>
 		<!-- END:  ui-components -->
 		
 		<!-- optional for a11y-slider -->
