@@ -1,6 +1,8 @@
 #######################################
 #python imports
 import urlparse
+from os import path
+from urllib import quote
 #######################################
 #Zope and Plone imports
 from zope.interface import implements, Interface
@@ -19,7 +21,7 @@ from cenditel.video import videoMessageFactory as _
 from cenditel.transcodedeamon.convert import MFN as MFNI
 from cenditel.transcodedeamon.convert import newtrans_init_
 from cenditel.transcodedeamon.convert import MTD as MTDI
-#from cenditel.transcodedeamon.convert import ServiceList
+from cenditel.transcodedeamon.convert import ServiceList
 from cenditel.transcodedeamon import manipulatefilename
 
 ##########################################
@@ -44,7 +46,6 @@ class videoView(BrowserView):
     def __init__(self, context, request):
 	self.context = context
 	self.request = request
-	#self.VariableEjemplo = ""
 	self.MyTitle = ""
 	self.MyTitleWhitOutSpace = ""
 	self.filename = ""
@@ -58,7 +59,7 @@ class videoView(BrowserView):
 	self.PathOfFile=""
 	self.STORAGE=""
 	self.AbsoluteServerPath=""
-	self.variable=""
+	self.newfiletranscoded=""
 	#print self.request.items()
 
 
@@ -93,44 +94,92 @@ class videoView(BrowserView):
 	    return path
 
     def PlayingVideoType(self):
-	import pdb; pdb.set_trace()
+	#import pdb; pdb.set_trace()
 	registry = getUtility(IRegistry)
 	settings = registry.forInterface(ITranscodeSetings)
 	self.SERVER = self.RemoveSlash(settings.adress_of_streaming_server)
-	PARAMETRES_TRANSCODE = settings.ffmpeg_parameters_video_line
+	VIDEO_PARAMETRES_TRANSCODE = settings.ffmpeg_parameters_video_line
+	AUDIO_PARAMETRES_TRANSCODE = settings.ffmpeg_parameters_audio_line
+	audio_content_types=settings.audio_valid_content_types
+	video_content_types=settings.video_valid_content_types
 	self.STORAGE = self.RemoveSlash(settings.mount_point_fss)
 	self.MyTitle = self.context.Title()
 	idvideo=self.context.getId()
-	"""
-	virtualobject=self.context.getAudio()
-	self.filenamesaved=virtualobject.filename
-	"""
 	self.MyTitleWhitOutSpace = MFNI.TitleDeleteSpace(self.MyTitle) 
 	self.filename = MFNI.DeleteSpaceinNameOfFolderFile(self.MyTitleWhitOutSpace)
 	url = self.context.absolute_url()
 	self.PathOfFile = MFNI.ReturnPathOfFile(url)
-	self.filenamesaved = MFNI.ReturnFileNameOfFileSaved(self.STORAGE, self.PathOfFile)
-	#print "IT IS THE NAME OF THE FILE SAVED " + self.filenamesaved
+	virtualobject=self.context.getVideo()
+	self.filenamesaved=virtualobject.filename
+	self.extension=MTDI.CheckExtension(self.filenamesaved)
 	self.MyTitleWhitOutSpace = MFNI.DeleteSpaceinNameOfFolderFile(self.MyTitleWhitOutSpace)
-	newtrans_init_(self.STORAGE, self.PathOfFile, self.filenamesaved, PARAMETRES_TRANSCODE, idvideo)
-	self.folderfileOGG=MTDI.newname(self.PathOfFile+'/' + self.filenamesaved)
-	self.AbsoluteServerPath = self.SERVER + MTDI.nginxpath(self.folderfileOGG)
-	self.variable=MTDI.nginxpath(self.STORAGE+self.folderfileOGG)
-	#################
-	#import pdb; pdb.set_trace()
-	##########(Verificar valores pasados a available)
-	self.StatusOfFile = ServiceList.available(idvideo, self.variable)
-	#print "El STATUS OF FILE IN THE VIEW "+ str(self.StatusOfFile)
-	if self.StatusOfFile == True:
-	    self.newfilename=MTDI.newname(self.filenamesaved)
+	if self.extension=="ogg" or self.extension=="ogv" or self.extension=="OGG" or self.extension=="OGV":
+	    self.folderfileOGG=self.PathOfFile+'/' + quote(self.filenamesaved)
+	    self.prefiletranscoded=self.STORAGE+self.PathOfFile+'/'+self.filenamesaved
+	    if path.isfile(self.prefiletranscoded)==True:
+		self.StatusOfFile=ServiceList.available(idaudio,self.prefiletranscoded)
+		if self.StatusOfFile == False:
+		    ServiceList.AddReadyElement(idaudio,self.prefiletranscoded)
+		    ServiceList.SaveInZODB()
+		    self.AbsoluteServerPath = self.SERVER + self.folderfileOGG
+		else:
+		    self.AbsoluteServerPath = self.SERVER + self.folderfileOGG
+	    else:
+		print _("File not found "+self.prefiletranscoded)
+		self.Error=True
+		self.ErrorSituation()
 	else:
-	    self.newfilename=_('The file is not ready yet, please contact site administration')
-	return 
+	    import pdb;pdb.set_trace()
+	    newtrans_init_(self.STORAGE,
+			   self.PathOfFile,
+			   self.filenamesaved,
+			   idvideo,
+			   VIDEO_PARAMETRES_TRANSCODE,
+			   AUDIO_PARAMETRES_TRANSCODE,
+			   audio_content_types,
+			   video_content_types)
+	    self.folderfileOGG=MTDI.newname(self.PathOfFile+'/' + self.filenamesaved)
+	    self.AbsoluteServerPath = self.SERVER + MTDI.nginxpath(self.folderfileOGG)
+	    self.newfiletranscoded=MTDI.nginxpath(self.STORAGE+self.folderfileOGG)
+	    #################
+	    #import pdb; pdb.set_trace()
+	    ##########(Verificar valores pasados a available)
+	    self.StatusOfFile = ServiceList.available(idvideo, self.newfiletranscoded)
+	    #print "El STATUS OF FILE IN THE VIEW "+ str(self.StatusOfFile)
+	    if self.StatusOfFile == True:
+		self.newfilename=MTDI.newname(self.filenamesaved)
+	    else:
+		self.newfilename=_('The file is not ready yet, please contact site administration')
+	return
+
+    def ErrorSituation(self):
+	#import pdb; pdb.set_trace()
+	if self.Error==False:
+	    return False
+	else:
+	    return True
 
     def GETFileSize(self):
-	self.filesize = MFNI.ReturnFileSizeOfFileInHardDrive(self.variable)
-	thefilesize = self.filesize
-	return thefilesize 
+	#import pdb;pdb.set_trace()
+	if self.extension=='ogg':
+	    try:
+		self.filesize = MFNI.ReturnFileSizeOfFileInHardDrive(self.STORAGE+self.folderfileOGG)
+		thefilesize = self.filesize
+		return thefilesize
+	    except OSError:
+		self.Error=True
+		self.ErrorSituation()
+		return "0 kb"
+	else:
+	    try:
+		self.filesize = MFNI.ReturnFileSizeOfFileInHardDrive(self.newfiletranscoded)
+		thefilesize = self.filesize
+		return thefilesize
+	    except OSError:
+		self.Error=True
+		self.ErrorSituation()
+		return "0 kb"
+
 
     def GETAdressOfVideoFromApache(self):
 	TheFilePath = self.AbsoluteServerPath
