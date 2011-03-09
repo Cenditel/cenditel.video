@@ -34,7 +34,7 @@ long_description = (
 
 tests_require = ['zope.testing']
 
-setup(name='Cenditel Foundation Video Format Specification',
+setup(name='cenditel.video',
       version=version,
       description="This package provides a content type to get video streaming using html5",
       long_description=long_description,
