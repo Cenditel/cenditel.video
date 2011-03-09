@@ -117,7 +117,7 @@ class videoView(BrowserView):
 	    self.folderfileOGG=self.PathOfFile+'/' + quote(self.filenamesaved)
 	    self.prefiletranscoded=self.STORAGE+self.PathOfFile+'/'+self.filenamesaved
 	    if path.isfile(self.prefiletranscoded)==True:
-		self.StatusOfFile=ServiceList.available(idaudio,self.prefiletranscoded)
+		self.StatusOfFile=ServiceList.available(idvideo,self.prefiletranscoded)
 		if self.StatusOfFile == False:
 		    ServiceList.AddReadyElement(idaudio,self.prefiletranscoded)
 		    ServiceList.SaveInZODB()
@@ -129,7 +129,6 @@ class videoView(BrowserView):
 		self.Error=True
 		self.ErrorSituation()
 	else:
-	    import pdb;pdb.set_trace()
 	    newtrans_init_(self.STORAGE,
 			   self.PathOfFile,
 			   self.filenamesaved,
@@ -213,4 +212,3 @@ class videoView(BrowserView):
 	url = self.context.absolute_url()
 	self.PathOfFile = MFNI.ReturnPathOfFile(url)
 	return self.PathOfFile
-
