@@ -2,7 +2,7 @@
 <rolemap>
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
-    <permission name="cenditel.multimedia: Add video" acquire="True">
+    <permission name="cenditel.video: Add video" acquire="True">
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
