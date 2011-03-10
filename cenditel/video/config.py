@@ -5,7 +5,7 @@ PROJECTNAME = 'cenditel.video'
 
 ADD_PERMISSIONS = {
     # -*- extra stuff goes here -*-
-    'video': 'cenditel.multimedia: Add video',
+    'video': 'cenditel.video: Add video',
 
 }
 
