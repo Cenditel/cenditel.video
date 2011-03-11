@@ -24,7 +24,7 @@ from iw.fss.FileSystemStorage import FileSystemStorage
 #from Products.validation.validators.SupplValidators import MaxSizeValidator
 from Products.validation.config import validation
 from Products.validation import V_REQUIRED
-from cenditel.video.validators import ContentTypeValidator, TranscodeValidator
+from cenditel.video.validators import ContentTypeValidator, TranscodeVideoValidator
 #from Products.ContentTypeValidator.validator import ContentTypeValidator
 
 
@@ -44,7 +44,7 @@ atapi.FileField('video',
                 description=_(u"The File to be uploaded"),
                 validators=(('checkFileMaxSize',V_REQUIRED),
                     (ContentTypeValidator()),
-                    (TranscodeValidator()),
+                    (TranscodeVideoValidator()),
                     #('evilness')
                     #('MyTranscodeValidator'),
                                                               ),
