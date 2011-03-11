@@ -35,24 +35,6 @@ from zope.interface import implements
 from Products.validation.i18n import recursiveTranslate
 from Products.validation.i18n import safe_unicode
 
-class EvilValidator:
-    __implements__ = IValidator
-
-    def __init__(self,
-                 name,
-                 title='Evil validator',
-                 description='You will fail'):
-        self.name = name
-        self.title = title or name
-        self.description = description
-
-    def __call__(self, value, *args, **kwargs):
-        instance = kwargs.get('instance', None)
-        field    = kwargs.get('field', None)
-        import pdb; pdb.set_trace()
-        return('Moahahahaha - you FAIL!')
-
-ValidatorsList.append(EvilValidator('evilness', title='', description=''))
 
 class FileSizeValidator:
     """Tests if an upload, file or something supporting len() is smaller than a
@@ -193,7 +175,7 @@ class ContentTypeValidator:
 
 #ValidatorsList.append(ContentTypeValidator('ValidContentType', title='', description=''))
 
-class TranscodeValidator:
+class TranscodeVideoValidator:
     """
     Validates if a user could upload a file if the transcode is not started
     """
@@ -219,7 +201,7 @@ class TranscodeValidator:
         #pdb.set_trace()
         valid_types=('video/ogg', 'video/x-theora+ogg', 'application/ogg')
         error = translate(_('contenttype_error', 
-                            default=u"File has to be of one of the following content-types '${types}', we sorry but in this moment the transcode is out of service", 
+                            default=_(u"We sorry but in this moment, the transcode is out of service your file must to be one of the following content-types '${types}'"), 
                             mapping={'types': ', '.join(valid_types)}), context=kw['instance'].REQUEST)
 
         if value and not value == 'DELETE_FILE':
@@ -252,7 +234,7 @@ class TranscodeValidator:
                 return error
         return 1
             
-ValidatorsList.append(TranscodeValidator('MyTranscodeValidator', title='', description=''))
+ValidatorsList.append(TranscodeVideoValidator('MyTranscodeValidator', title='', description=''))
 
 for validator in ValidatorsList:
     validation.register(validator)
