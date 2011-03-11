@@ -7,9 +7,9 @@
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
-      title="Cenditel Video Content Type"
+      title="Cenditel Foundation Video Format Specification"
       directory="profiles/default"
-      description="This package provides a content type to get video streaming using html5"
+      description="This package provides a aditional content type to get video streaming using html5"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       i18n:attributes="title gs_profiles_default_title;
                        description gs_profiles_default_description;"
