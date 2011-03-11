@@ -6,7 +6,7 @@
   <property name="title" i18n:translate="">Video</property>
   <property name="description" i18n:translate="">it's video file with streming using html5</property>
   <property name="content_meta_type">video</property>
-  <property name="content_icon">video.png</property>
+  <property name="content_icon">++resource++cenditel.video.images/video.png</property>
   <property name="product">cenditel.video</property>
   <property name="factory">addvideo</property>
   <property name="immediate_view">atct_edit</property>

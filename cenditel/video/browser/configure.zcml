@@ -20,4 +20,11 @@
 allowed_interface=".videoview.IvideoView"
 allowed_attributes="portal_state"-->
 
+
+  <browser:resourceDirectory
+      name="cenditel.video.images"
+      directory="images"
+      layer="cenditel.video.interfaces.IvideoSpecific"
+      />
+
 </configure>
