@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-#from Products.validation.interfaces import ivalidator
-from cenditel.video import videoMessageFactory as _
-#from Products.CMFPlone import PloneMessageFactory as _
 from Products.validation.config import validation
 try:
     from Products.validation.interfaces.IValidator import IValidator
@@ -10,8 +7,6 @@ except ImportError:
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), os.pardir))
     from interfaces.IValidator import IValidator
     del sys, os
-
-ValidatorsList=[]
 
 #MaxSizeValidator Validator Imports
 from Products.ATContentTypes.configuration import zconf
@@ -25,6 +20,7 @@ from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 #
 from cenditel.transcodedeamon.interfaces import ITranscodeSetings
+from cenditel.video import videoMessageFactory as _
 
 #
 from zope.i18n import translate
@@ -34,6 +30,8 @@ from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from Products.validation.i18n import recursiveTranslate
 from Products.validation.i18n import safe_unicode
+
+ValidatorsList=[]
 
 
 class FileSizeValidator:
@@ -60,8 +58,7 @@ class FileSizeValidator:
         instance = kwargs.get('instance', None)
         field    = kwargs.get('field', None)
 
-        # get max size
-        
+        # get max size        
         if kwargs.has_key('maxsize'):
             maxsize = kwargs.get('maxsize')
         elif hasattr(aq_base(instance), 'getMaxSizeFor'):
@@ -150,7 +147,7 @@ class ContentTypeValidator:
         #import pdb; pdb.set_trace()
         content_types=tuple(valid_content_types.split())
         error = translate(_('contenttype_error', 
-                            default=u"File has to be of one of the following content-types '${types}'", 
+                            default=_(u"File has to be of one of the following content-types '${types}'."), 
                             mapping={'types': ', '.join(content_types)}), context=kw['instance'].REQUEST)
         if value and not value == 'DELETE_FILE':
             try:
@@ -173,8 +170,6 @@ class ContentTypeValidator:
                 return error
         return 1
 
-#ValidatorsList.append(ContentTypeValidator('ValidContentType', title='', description=''))
-
 class TranscodeVideoValidator:
     """
     Validates if a user could upload a file if the transcode is not started
@@ -193,15 +188,9 @@ class TranscodeVideoValidator:
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ITranscodeSetings)
         transcode_status = settings.transcode_switch
-        #pdb.set_trace()
-        #type=kw['field'].getContentType(kw['instance'])
-        #my_mime_types = getToolByName(kw['instance'], 'mimetypes_registry')
-        #typess=my_mime_types.lookupExtension(value.filename.lower())
-        #file_type = typess.my_mime_metypes[0]
-        #pdb.set_trace()
         valid_types=('video/ogg', 'video/x-theora+ogg', 'application/ogg')
-        error = translate(_('contenttype_error', 
-                            default=_(u"We sorry but in this moment, the transcode is out of service your file must to be one of the following content-types '${types}'"), 
+        error = translate(_('contenttype_error_transcode_service', 
+                            default=_(u"We sorry but in this moment, the transcode is out of service. To load your file must to be one of the following content-types '${types}'."), 
                             mapping={'types': ', '.join(valid_types)}), context=kw['instance'].REQUEST)
 
         if value and not value == 'DELETE_FILE':
