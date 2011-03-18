@@ -1,5 +1,5 @@
-i18ndude rebuild-pot --pot ./cenditelvideo.pot --create cenditel.video ../ || exit 1  
-i18ndude sync --pot ./cenditelvideo.pot ./*/LC_MESSAGES/cenditelvideo.po
+i18ndude rebuild-pot --pot ./cenditel.video.pot --create cenditel.video ../ || exit 1  
+i18ndude sync --pot ./cenditel.video.pot ./*/LC_MESSAGES/cenditel.video.po
 
 WARNINGS=`find . -name "*pt" | xargs i18ndude find-untranslated | grep -e '^-WARN' | wc -l`
 ERRORS=`find . -name "*pt" | xargs i18ndude find-untranslated | grep -e '^-ERROR' | wc -l`
