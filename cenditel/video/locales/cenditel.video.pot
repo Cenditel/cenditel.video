@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-03-11 02:29+0000\n"
+"POT-Creation-Date: 2011-03-20 00:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,8 +38,11 @@ msgid "Validation failed($name: Uploaded data is too large: ${size}MB (max ${max
 msgstr ""
 
 #: ../content/video.py:33
-#: ../profiles/default/types/video.xml
 msgid "Video"
+msgstr ""
+
+#: ../profiles/default/types/video.xml
+msgid "Video File"
 msgstr ""
 
 #. Default: "File has to be of one of the following content-types '${types}'."

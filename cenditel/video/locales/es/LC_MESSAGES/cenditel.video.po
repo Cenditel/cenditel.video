@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cenditel.video\n"
-"POT-Creation-Date: 2011-03-18 15:44+0000\n"
-"PO-Revision-Date: 2011-03-18 11:33-0400\n"
+"POT-Creation-Date: 2011-03-20 00:40+0000\n"
+"PO-Revision-Date: 2011-03-19 20:11-0400\n"
 "Last-Translator: Victor Teran <elalcon89@hotmail.com>\n"
 "Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,9 +37,12 @@ msgid "Validation failed($name: Uploaded data is too large: ${size}MB (max ${max
 msgstr "¡Fallo validación! ($name: El archivo subido es demasiado grande: su tamaño actual es ${size}MB (máximo permitido ${max}MB)"
 
 #: ../content/video.py:33
-#: ../profiles/default/types/video.xml
 msgid "Video"
 msgstr "Vídeo"
+
+#: ../profiles/default/types/video.xml
+msgid "Video File"
+msgstr "Archivo de Vídeo"
 
 #. Default: "File has to be of one of the following content-types '${types}'."
 #: ../validators.py:149

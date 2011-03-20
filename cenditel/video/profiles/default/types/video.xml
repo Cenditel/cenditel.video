@@ -3,7 +3,7 @@
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="cenditel.video">
 
-  <property name="title" i18n:translate="">Video</property>
+  <property name="title" i18n:translate="">Video File</property>
   <property name="description" i18n:translate="">it's video file with streming using html5</property>
   <property name="content_meta_type">video</property>
   <property name="content_icon">++resource++cenditel.video.images/video.png</property>
