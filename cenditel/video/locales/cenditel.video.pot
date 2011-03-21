@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-03-20 00:40+0000\n"
+"POT-Creation-Date: 2011-03-21 01:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,11 @@ msgstr ""
 
 #: ../browser/videoview.py:128
 msgid "File not found "
+msgstr ""
+
+#. Default: "Mozilla Firefox"
+#: ../browser/videoview.pt:169
+msgid "Firefox"
 msgstr ""
 
 #: ../content/video.py:34
@@ -60,27 +65,27 @@ msgid "it's video file with streming using html5"
 msgstr ""
 
 #. Default: "In this moment the file is on processing of transcodification"
-#: ../browser/videoview.pt:201
+#: ../browser/videoview.pt:203
 msgid "label_FileIsWaiting"
 msgstr ""
 
 #. Default: "Name of the file in the HardDrive:"
-#: ../browser/videoview.pt:192
+#: ../browser/videoview.pt:194
 msgid "label_NameInHardDrive"
 msgstr ""
 
-#. Default: "We sorry, your browser do not give support to html5, please download"
-#: ../browser/videoview.pt:167
+#. Default: "We sorry, your browser do not give support to html5, please download <a href=\"http://www.mozilla-europe.org/es/firefox/\" target=\"_new\">x</a>"
+#: ../browser/videoview.pt:169
 msgid "label_NoHTML5"
 msgstr ""
 
 #. Default: "Sorry for the inconvenience..."
-#: ../browser/videoview.pt:202
+#: ../browser/videoview.pt:204
 msgid "label_Sorry"
 msgstr ""
 
 #. Default: "Name of the video:"
-#: ../browser/videoview.pt:183
+#: ../browser/videoview.pt:185
 msgid "label_TitleInHardDrive"
 msgstr ""
 
@@ -90,7 +95,7 @@ msgid "label_VideoHTML5"
 msgstr ""
 
 #. Default: "Size"
-#: ../browser/videoview.pt:188
+#: ../browser/videoview.pt:190
 msgid "label_size"
 msgstr ""
 
