@@ -166,7 +166,7 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 
               <span i18n:translate="label_NoHTML5">
                  We sorry, your browser do not give support to html5, please download
-                 <a href="http://www.mozilla-europe.org/es/firefox/" target="_new" i18n:translate="Firefox">Mozilla Firefox</a>
+                 <a href="http://www.firefox.com/" target="_new" i18n:translate="Firefox">Mozilla Firefox</a>
               </span>
               
                <ul class="source-fallback-video">
