@@ -48,7 +48,6 @@ class videoView(BrowserView):
 	self.request = request
 	self.MyTitle = ""
 	self.MyTitleWhitOutSpace = ""
-	self.filename = ""
 	self.newfilename = ""
 	self.filenamesaved= ""
 	self.folderfile = ""
@@ -71,17 +70,6 @@ class videoView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-	
-    def SALUDO(self, nombre):
-        return "hola"+ str(nombre)
-
-    def Hola(self):
-	J = convert.HelloWorld()
-	return J.HolaMundo()
-
-    def VariableDeEjemplo(self):
-	self.VariableEjemplo="Hola-----------Mundo"
-	return self.VariableEjemplo
 
     def RemoveSlash(self, path):
 	reverse=path[::-1]
@@ -106,7 +94,6 @@ class videoView(BrowserView):
 	self.MyTitle = self.context.Title()
 	idvideo=self.context.getId()
 	self.MyTitleWhitOutSpace = MFNI.TitleDeleteSpace(self.MyTitle) 
-	self.filename = MFNI.DeleteSpaceinNameOfFolderFile(self.MyTitleWhitOutSpace)
 	url = self.context.absolute_url()
 	self.PathOfFile = MFNI.ReturnPathOfFile(url)
 	virtualobject=self.context.getVideo()
@@ -158,9 +145,21 @@ class videoView(BrowserView):
 	else:
 	    return True
 
+    def TrueFile(self):
+	if self.extension=="ogg" or self.extension=="ogv":
+	    if path.isfile(self.prefiletranscoded):
+		return True
+	    else:
+		return False
+	else:
+	    if path.isfile(self.newfiletranscoded)==False:
+		return False
+	    else:
+		return True
+
     def GETFileSize(self):
 	#import pdb;pdb.set_trace()
-	if self.extension=='ogg':
+	if self.extension=='ogg' or self.extension=='ogv':
 	    try:
 		self.filesize = MFNI.ReturnFileSizeOfFileInHardDrive(self.STORAGE+self.folderfileOGG)
 		thefilesize = self.filesize
@@ -180,7 +179,10 @@ class videoView(BrowserView):
 		return "0 kb"
 
 
-    def GETAdressOfVideoFromApache(self):
+    def GETAdressOfWebServer(self):
+	"""
+	This method return the server path to the <audio> label
+	"""
 	TheFilePath = self.AbsoluteServerPath
 	return TheFilePath
 
@@ -191,9 +193,11 @@ class videoView(BrowserView):
 
 
     def GETNewNameVideo(self):
-
-	TheNewName = self.newfilename
-	return TheNewName
+	if self.extension=='ogg' or self.extension=='ogv':
+	    return self.filenamesaved
+	else:
+	    TheNewName = self.newfilename
+	    return TheNewName
 
     def GETfolderfile(self):
 	TheFolderFile = self.AbsoluteServerPath 

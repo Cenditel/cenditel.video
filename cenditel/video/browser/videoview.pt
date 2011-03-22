@@ -107,11 +107,10 @@
       <tal:main-macro metal:define-macro="main"
                       tal:define="Playing view/PlayingVideoType;
                                   NameInHardDrive view/GETNewNameVideo;
-                                  MyTitle view/GETMyTitle;
                                   Available view/GETStatusOfFile;
-                                  UrlToVideo view/GETAdressOfVideoFromApache;
+                                  UrlToVideo view/GETAdressOfWebServer;
                                   FolderFile view/GETfolderfile;
-                                  NewPath view/URLElement">
+				  TrueFile view/TrueFile">
 
 	    <div tal:replace="structure provider:plone.abovecontenttitle" />
 <!--##widget del titulo de la template parte superior-->
@@ -129,6 +128,8 @@
 	        Description
 	        </metal:field>
 	    </p>
+	    <br />
+	    <br />
 <!--####################DEBUG INFO
 La variable retornada por el Available   <span tal:replace="string:$Available"></span>
 <br />################################-->
@@ -139,17 +140,13 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 	        </metal:field>
 	        <span class="discreet"></span>
 <!--##widget de video de la template-->
-
+<br />
+<br />
 
 <!--##widget de video de la template en caso de available ser verdadero-->
-	    <span tal:condition= "python: Available == 1">
-	     <span i18n:translate="label_VideoHTML5">video:</span>
-	      <span class="media-label" tal:content="here/getId"><tal:comment replace="nothing">Id</tal:comment></span>
-                            <a tal:content="string:$MyTitle" 
-                               tal:attributes="href string:$UrlToVideo;
-                                               target string:_new">
-                               <tal:comment replace="nothing">La URL</tal:comment>
-                            </a>
+	    <span tal:condition= "python: Available == 1 and TrueFile==1">
+	     
+                            
                             
 	      <div class="media-player">
 
@@ -164,10 +161,11 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 	    
              <div class="fallback-text">
 
-              <span i18n:translate="label_NoHTML5">
+              <b i18n:translate="label_NoHTML5">
                  We sorry, your browser do not give support to html5, please download
+	      </b>
                  <a href="http://www.firefox.com/" target="_new" i18n:translate="Firefox">Mozilla Firefox</a>
-              </span>
+              
               
                <ul class="source-fallback-video">
 			   <li><a class="source" tal:attributes="href string:$FolderFile"></a></li>
@@ -176,27 +174,31 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 
              </div>
 
-        	</div>
+                </div>
 
            </video>
 
           </div>
 
-          <span i18n:translate="label_TitleInHardDrive">Name of the video:</span>
-          <span tal:content="string:$MyTitle"><tal:comment replace="nothing">it is the Name of the video</tal:comment></span>
-
-          <span class="discreet visualNoPrint">
-           &mdash;
+<br/>
+	    <span i18n:translate="label_Download">Download now:</span>
+           <span><tal:comment replace="nothing">it is the Name of the video</tal:comment></span>
+           <a tal:content="string:$NameInHardDrive" 
+                               tal:attributes="href string:$FolderFile;
+                                               target string:_new">
+                               <tal:comment replace="nothing">La URL</tal:comment>
+            </a>
+	   <br />
+	   <span class="discreet visualNoPrint">
             <span i18n:translate="label_size">Size</span>:
             <span tal:define= "FileSize view/GETFileSize" tal:content="string:$FileSize"><tal:comment replace="nothing">File size</tal:comment></span>
           </span>
 
-          <span i18n:translate="label_NameInHardDrive">Name of the file in the HardDrive:</span>
-           <span tal:content="string:$NameInHardDrive"><tal:comment replace="nothing">it is the Name of the video</tal:comment></span>
+          
 	   </span>
 
       <!--##widget de video de la template en caso de available ser falso-->
-       <div tal:condition="python:Available == 0">
+       <div tal:condition="python:Available == 0 and Error==0">
 
         <font color="#777777" size="1" face="cursive"><br />
 
@@ -209,6 +211,12 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 <!-- La variable retornada por el Available   <span tal:replace="string:${Available}"></span>-->
 <!--#########################################################################-->
 
+<div tal:condition="python:(Available == 0 or Available==1) and TrueFile==0">
+            <font color="#777777" size="1" face="cursive"><br/>
+            	<span i18n:translate="label_ErrorToGetTheFile">In this moment the file is not available for Streaming</span><br/>
+            	<span i18n:translate="label_SorryError">Sorry for the inconvenience...</span>
+	    </font>
+</div>
       <div tal:replace="structure provider:plone.abovecontentbody" />
 
       <div metal:use-macro="here/document_relateditems/macros/relatedItems">
