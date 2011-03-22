@@ -59,6 +59,7 @@ class videoView(BrowserView):
 	self.STORAGE=""
 	self.AbsoluteServerPath=""
 	self.newfiletranscoded=""
+	self.Error=False
 	#print self.request.items()
 
 

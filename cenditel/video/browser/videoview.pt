@@ -110,7 +110,9 @@
                                   Available view/GETStatusOfFile;
                                   UrlToVideo view/GETAdressOfWebServer;
                                   FolderFile view/GETfolderfile;
-				  TrueFile view/TrueFile">
+				  Error view/ErrorSituation;
+				  TrueFile view/TrueFile;
+				  FileSize view/GETFileSize">
 
 	    <div tal:replace="structure provider:plone.abovecontenttitle" />
 <!--##widget del titulo de la template parte superior-->
@@ -144,7 +146,7 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 <br />
 
 <!--##widget de video de la template en caso de available ser verdadero-->
-	    <span tal:condition= "python: Available == 1 and TrueFile==1">
+	    <span tal:condition= "python: Available == 1 and TrueFile==1 and Error==0">
 	     
                             
                             
@@ -191,14 +193,14 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 	   <br />
 	   <span class="discreet visualNoPrint">
             <span i18n:translate="label_size">Size</span>:
-            <span tal:define= "FileSize view/GETFileSize" tal:content="string:$FileSize"><tal:comment replace="nothing">File size</tal:comment></span>
+            <span tal:content="string:$FileSize"><tal:comment replace="nothing">File size</tal:comment></span>
           </span>
 
           
 	   </span>
 
       <!--##widget de video de la template en caso de available ser falso-->
-       <div tal:condition="python:Available == 0 and Error==0">
+       <div tal:condition="python:Available == 0 and Error==0 and (TrueFile==0 or TrueFile==1) or (Available == 0 and TrueFile==0 and Error==0)">
 
         <font color="#777777" size="1" face="cursive"><br />
 
@@ -211,7 +213,7 @@ La variable retornada por el Available   <span tal:replace="string:$Available"><
 <!-- La variable retornada por el Available   <span tal:replace="string:${Available}"></span>-->
 <!--#########################################################################-->
 
-<div tal:condition="python:(Available == 0 or Available==1) and TrueFile==0">
+<div tal:condition="python:Available==1 and TrueFile==0 and (Error==1 or Error==0)">
             <font color="#777777" size="1" face="cursive"><br/>
             	<span i18n:translate="label_ErrorToGetTheFile">In this moment the file is not available for Streaming</span><br/>
             	<span i18n:translate="label_SorryError">Sorry for the inconvenience...</span>
