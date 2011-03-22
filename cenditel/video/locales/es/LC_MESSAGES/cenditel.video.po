@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cenditel.video\n"
-"POT-Creation-Date: 2011-03-21 20:03+0000\n"
-"PO-Revision-Date: 2011-03-21 15:38-0400\n"
+"POT-Creation-Date: 2011-03-22 02:04+0000\n"
+"PO-Revision-Date: 2011-03-21 21:37-0400\n"
 "Last-Translator: Victor Teran <elalcon89@hotmail.com>\n"
 "Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,12 @@ msgstr ""
 msgid "Description"
 msgstr "Descripción"
 
-#: ../browser/videoview.py:128
+#: ../browser/videoview.py:115
 msgid "File not found "
 msgstr "Archivo no encontrado "
 
 #. Default: "Mozilla Firefox"
-#: ../browser/videoview.pt:166
+#: ../browser/videoview.pt:167
 msgid "Firefox"
 msgstr "Firefox"
 
@@ -33,13 +33,13 @@ msgstr "Firefox"
 msgid "The File to be uploaded"
 msgstr "El archivo a ser cargado"
 
-#: ../browser/videoview.py:151
+#: ../browser/videoview.py:138
 msgid "The file is not ready yet, please contact site administration"
 msgstr "El archivo aún no esta listo, contacte a la administración del sitio"
 
 #: ../validators.py:91
-msgid "Validation failed($name: Uploaded data is too large: ${size}MB (max ${max}MB)"
-msgstr "¡Fallo validación! ($name: El archivo subido es demasiado grande: su tamaño actual es ${size}MB (máximo permitido ${max}MB)"
+msgid "Validation failed(Uploaded data is too large: ${size}MB (max ${max}MB))"
+msgstr "¡Fallo validación! (data subida es demasiado grande: su tamaño actual es ${size}MB (máximo permitido ${max}MB ))"
 
 #: ../content/video.py:33
 msgid "Video"
@@ -50,12 +50,12 @@ msgid "Video File"
 msgstr "Archivo de Vídeo"
 
 #. Default: "File has to be of one of the following content-types '${types}'."
-#: ../validators.py:149
+#: ../validators.py:148
 msgid "contenttype_error"
 msgstr "El archivo tiene que ser uno de los siguientes formatos de vídeo '${types}'."
 
 #. Default: "We sorry but in this moment, the transcode is out of service. To load your file must to be one of the following content-types '${types}'."
-#: ../validators.py:192
+#: ../validators.py:191
 msgid "contenttype_error_transcode_service"
 msgstr "Lo sentimos pero en este momento el servicio de conversión de formatos no esta disponible. Para cargar su archivo tiene que ser uno de los siguientes formatos de vídeo '${types}'."
 
@@ -64,27 +64,37 @@ msgid "it's video file with streming using html5"
 msgstr "Este es un archivo de vídeo con streaming usando HTML5"
 
 #. Default: "Download now:"
-#: ../browser/videoview.pt:183
+#: ../browser/videoview.pt:184
 msgid "label_Download"
 msgstr "Descargue Ahora:"
 
+#. Default: "In this moment the file is not available for Streaming"
+#: ../browser/videoview.pt:216
+msgid "label_ErrorToGetTheFile"
+msgstr "En este momento, el archivo no esta disponible para Streaming"
+
 #. Default: "In this moment the file is on processing of transcodification"
-#: ../browser/videoview.pt:204
+#: ../browser/videoview.pt:205
 msgid "label_FileIsWaiting"
 msgstr "En este momento el archivo esta siendo procesado"
 
 #. Default: "We sorry, your browser do not give support to html5, please download"
-#: ../browser/videoview.pt:163
+#: ../browser/videoview.pt:164
 msgid "label_NoHTML5"
 msgstr "Lo sentimos, su explorador no da soporte a HTML5 por favor descargue "
 
 #. Default: "Sorry for the inconvenience..."
-#: ../browser/videoview.pt:205
+#: ../browser/videoview.pt:206
 msgid "label_Sorry"
 msgstr "Disculpe la inconveniencia..."
 
+#. Default: "Sorry for the inconvenience..."
+#: ../browser/videoview.pt:217
+msgid "label_SorryError"
+msgstr "Disculpe la Inconveniencia..."
+
 #. Default: "Size"
-#: ../browser/videoview.pt:192
+#: ../browser/videoview.pt:193
 msgid "label_size"
 msgstr "Tamaño de Archivo"
 

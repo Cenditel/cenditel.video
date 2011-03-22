@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-03-21 20:03+0000\n"
+"POT-Creation-Date: 2011-03-22 02:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,12 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: ../browser/videoview.py:128
+#: ../browser/videoview.py:115
 msgid "File not found "
 msgstr ""
 
 #. Default: "Mozilla Firefox"
-#: ../browser/videoview.pt:166
+#: ../browser/videoview.pt:167
 msgid "Firefox"
 msgstr ""
 
@@ -34,12 +34,12 @@ msgstr ""
 msgid "The File to be uploaded"
 msgstr ""
 
-#: ../browser/videoview.py:151
+#: ../browser/videoview.py:138
 msgid "The file is not ready yet, please contact site administration"
 msgstr ""
 
 #: ../validators.py:91
-msgid "Validation failed($name: Uploaded data is too large: ${size}MB (max ${max}MB)"
+msgid "Validation failed(Uploaded data is too large: ${size}MB (max ${max}MB))"
 msgstr ""
 
 #: ../content/video.py:33
@@ -51,12 +51,12 @@ msgid "Video File"
 msgstr ""
 
 #. Default: "File has to be of one of the following content-types '${types}'."
-#: ../validators.py:149
+#: ../validators.py:148
 msgid "contenttype_error"
 msgstr ""
 
 #. Default: "We sorry but in this moment, the transcode is out of service. To load your file must to be one of the following content-types '${types}'."
-#: ../validators.py:192
+#: ../validators.py:191
 msgid "contenttype_error_transcode_service"
 msgstr ""
 
@@ -65,27 +65,37 @@ msgid "it's video file with streming using html5"
 msgstr ""
 
 #. Default: "Download now:"
-#: ../browser/videoview.pt:183
+#: ../browser/videoview.pt:184
 msgid "label_Download"
 msgstr ""
 
+#. Default: "In this moment the file is not available for Streaming"
+#: ../browser/videoview.pt:216
+msgid "label_ErrorToGetTheFile"
+msgstr ""
+
 #. Default: "In this moment the file is on processing of transcodification"
-#: ../browser/videoview.pt:204
+#: ../browser/videoview.pt:205
 msgid "label_FileIsWaiting"
 msgstr ""
 
 #. Default: "We sorry, your browser do not give support to html5, please download"
-#: ../browser/videoview.pt:163
+#: ../browser/videoview.pt:164
 msgid "label_NoHTML5"
 msgstr ""
 
 #. Default: "Sorry for the inconvenience..."
-#: ../browser/videoview.pt:205
+#: ../browser/videoview.pt:206
 msgid "label_Sorry"
 msgstr ""
 
+#. Default: "Sorry for the inconvenience..."
+#: ../browser/videoview.pt:217
+msgid "label_SorryError"
+msgstr ""
+
 #. Default: "Size"
-#: ../browser/videoview.pt:192
+#: ../browser/videoview.pt:193
 msgid "label_size"
 msgstr ""
 
