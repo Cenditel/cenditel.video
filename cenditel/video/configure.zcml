@@ -25,5 +25,27 @@
 	zope.app.container.interfaces.IObjectRemovedEvent"
 	handler="cenditel.transcodedeamon.eventdelete.type_custom_delete"
         />
+  
+  <subscriber
+        for="cenditel.audio.interfaces.Ivideo
+        zope.app.container.interfaces.IObjectMovedEvent"
+        handler="cenditel.transcodedeamon.eventmoved.type_custom_moved"
+        />
+
+
+    <subscriber
+        zcml:condition="installed zope.lifecycleevent"
+        for="cenditel.audio.interfaces.Ivideo
+        zope.lifecycleevent.IObjectCopiedEvent"
+        handler="cenditel.transcodedeamon.event_custom_copy.Custom_CopyObjet"
+        />
+
+
+    <subscriber
+        for="cenditel.audio.interfaces.Ivideo
+        Products.Archetypes.interfaces.IObjectEditedEvent"
+        handler="cenditel.transcodedeamon.eventedited.ModifiedElement"
+        />
+
 
 </configure>
