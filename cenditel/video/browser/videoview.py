@@ -17,6 +17,9 @@ from plone.registry.interfaces import IRegistry
 from Acquisition import interfaces
 ##########################################
 #Products Imports
+from zope.app.component.hooks import getSite
+from iw.fss.config import ZCONFIG
+#################################
 from cenditel.video import videoMessageFactory as _
 from cenditel.transcodedeamon.convert import MFN as MFNI
 from cenditel.transcodedeamon.convert import newtrans_init_
@@ -91,27 +94,27 @@ class videoView(BrowserView):
 	AUDIO_PARAMETRES_TRANSCODE = settings.ffmpeg_parameters_audio_line
 	audio_content_types=settings.audio_valid_content_types
 	video_content_types=settings.video_valid_content_types
-	self.STORAGE = self.RemoveSlash(settings.mount_point_fss)
+	portal = getSite()
+	self.STORAGE=ZCONFIG.storagePathForSite(portal)
 	self.MyTitle = self.context.Title()
 	idvideo=self.context.getId()
-	self.MyTitleWhitOutSpace = MFNI.TitleDeleteSpace(self.MyTitle) 
-	url = self.context.absolute_url()
-	self.PathOfFile = MFNI.ReturnPathOfFile(url)
+	self.MyTitleWhitOutSpace = MFNI.DeleteSpaceinNameOfFolderFile(MFNI.TitleDeleteSpace(self.MyTitle))
+	self.PathOfFile = self.context._getURL()
 	virtualobject=self.context.getVideo()
 	self.filenamesaved=virtualobject.filename
 	self.extension=MTDI.CheckExtension(self.filenamesaved)
-	self.MyTitleWhitOutSpace = MFNI.DeleteSpaceinNameOfFolderFile(self.MyTitleWhitOutSpace)
 	if self.extension=="ogg" or self.extension=="ogv" or self.extension=="OGG" or self.extension=="OGV":
-	    self.folderfileOGG=self.PathOfFile+'/' + quote(self.filenamesaved)
-	    self.prefiletranscoded=self.STORAGE+self.PathOfFile+'/'+self.filenamesaved
+	    self.folderfileOGG=path.join(self.PathOfFile,quote(self.filenamesaved))
+	    self.prefiletranscoded=path.join(self.STORAGE,self.PathOfFile,self.filenamesaved)
 	    if path.isfile(self.prefiletranscoded)==True:
 		self.StatusOfFile=ServiceList.available(idvideo,self.prefiletranscoded)
 		if self.StatusOfFile == False:
-		    ServiceList.AddReadyElement(idaudio,self.prefiletranscoded)
+		    ServiceList.AddReadyElement(idvideo,self.prefiletranscoded)
+		    self.StatusOfFile=True
 		    ServiceList.SaveInZODB()
-		    self.AbsoluteServerPath = self.SERVER + self.folderfileOGG
+		    self.AbsoluteServerPath = path.join(self.SERVER,self.folderfileOGG)
 		else:
-		    self.AbsoluteServerPath = self.SERVER + self.folderfileOGG
+		    self.AbsoluteServerPath = path.join(self.SERVER,self.folderfileOGG)
 	    else:
 		print _("File not found "+self.prefiletranscoded)
 		self.Error=True
@@ -125,14 +128,11 @@ class videoView(BrowserView):
 			   AUDIO_PARAMETRES_TRANSCODE,
 			   audio_content_types,
 			   video_content_types)
-	    self.folderfileOGG=MTDI.newname(self.PathOfFile+'/' + self.filenamesaved)
-	    self.AbsoluteServerPath = self.SERVER + MTDI.nginxpath(self.folderfileOGG)
-	    self.newfiletranscoded=MTDI.nginxpath(self.STORAGE+self.folderfileOGG)
-	    #################
-	    #import pdb; pdb.set_trace()
-	    ##########(Verificar valores pasados a available)
-	    self.StatusOfFile = ServiceList.available(idvideo, self.newfiletranscoded)
-	    #print "El STATUS OF FILE IN THE VIEW "+ str(self.StatusOfFile)
+	    self.folderfileOGG=MTDI.newname(path.join(self.PathOfFile,self.filenamesaved))
+	    self.AbsoluteServerPath = path.join(self.SERVER,MTDI.nginxpath(self.folderfileOGG))
+	    self.newfiletranscoded=MTDI.nginxpath(path.join(self.STORAGE,self.folderfileOGG))
+	    self.StatusOfFile = ServiceList.available(idvideo,self.newfiletranscoded)
+	    #import pdb;pdb.set_trace()
 	    if self.StatusOfFile == True:
 		self.newfilename=MTDI.newname(self.filenamesaved)
 	    else:
@@ -162,7 +162,7 @@ class videoView(BrowserView):
 	#import pdb;pdb.set_trace()
 	if self.extension=='ogg' or self.extension=='ogv':
 	    try:
-		self.filesize = MFNI.ReturnFileSizeOfFileInHardDrive(self.STORAGE+self.folderfileOGG)
+		self.filesize = MFNI.ReturnFileSizeOfFileInHardDrive(path.join(self.STORAGE,self.folderfileOGG))
 		thefilesize = self.filesize
 		return thefilesize
 	    except OSError:
